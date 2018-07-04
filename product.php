@@ -3,9 +3,13 @@ session_start();
 include 'koneksi.php';
 if (isset($_SESSION['pelanggan'])) {
 	$pelanggan = $_SESSION['pelanggan'];
-	$cari = $CON->query("SELECT * FROM cart WHERE id_pelanggan = '$pelanggan'");
+	$product= $_GET['id_product'];
+
+	$cari = $CON->query("SELECT * FROM product WHERE id_product = '$product'");
 	$hasil = mysqli_fetch_array($cari);
-	$jumlah = mysqli_num_rows($cari);
+
+$has = $CON->query("SELECT * FROM cart WHERE id_pelanggan = '$pelanggan'");
+$jumlah = mysqli_num_rows($has);
 } else {
 	$jumlah=0;
 }
@@ -101,7 +105,7 @@ if (isset($_SESSION['pelanggan'])) {
 				<div class="col">
 					<div class="home_container">
 						<div class="home_content">
-							<div class="home_title"><?php echo $jumlah['nama']; ?></div>
+							<div class="home_title"><?php echo $hasil['nama']; ?></div>
 							<div class="breadcrumbs">
 								<ul>
 									<li><a href="index.php">Home</a></li>
